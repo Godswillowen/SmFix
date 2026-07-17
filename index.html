@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM Fix — Phone &amp; Gadget Repair</title>
+<meta name="description" content="SM Fix repairs cracked screens, water damage, batteries, charging ports and more. Book a repair and secure your slot with a Paystack deposit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ===== Tokens ===== */
+:root{
+  --navy-950:#050b24;
+  --navy-900:#0a1440;
+  --navy-800:#101c56;
+  --navy-700:#182a6e;
+  --blue-500:#2f6fed;
+  --blue-400:#5a8cf5;
+  --blue-300:#7aa6ff;
+  --white:#ffffff;
+  --ice:#eef1fa;
+  --ice-dim:#c3cbe6;
+  --line:rgba(255,255,255,.12);
+  --line-dark:rgba(10,20,64,.10);
+  --shadow:0 20px 50px -20px rgba(5,11,36,.45);
+  --good:#16a34a;
+  --bad:#e0455a;
+
+  --display:'Space Grotesk', sans-serif;
+  --body:'Inter', sans-serif;
+  --mono:'JetBrains Mono', monospace;
+
+  --container:1180px;
+  --radius:16px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--body);
+  color:var(--navy-900);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;color:var(--navy-900);}
+p{margin:0;color:#4a5477;line-height:1.65;}
+ul{margin:0;padding:0;list-style:none;}
+section{padding:110px 24px;}
+@media (max-width:720px){ section{padding:72px 20px;} }
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--blue-500);font-weight:600;margin-bottom:18px;
+}
+.eyebrow.light{color:var(--blue-300);}
+
+.section-head{max-width:640px;margin:0 auto 56px;text-align:center;}
+.section-head h2{font-size:clamp(1.7rem,3vw,2.5rem);margin-bottom:14px;}
+.section-head p{font-size:1.02rem;}
+.section-head.light h2{color:var(--white);}
+.section-head.light p{color:var(--ice-dim);}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--body);font-weight:600;font-size:.92rem;
+  padding:12px 20px;border-radius:999px;border:1px solid transparent;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  white-space:nowrap;cursor:pointer;
+}
+.btn i{font-size:.95em;}
+.btn-primary{background:var(--blue-500);color:var(--white);box-shadow:0 10px 24px -10px rgba(47,111,237,.6);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(47,111,237,.7);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.btn-ghost{background:transparent;color:var(--navy-900);border-color:var(--line-dark);}
+.btn-ghost:hover{background:var(--ice);}
+.btn-outline{border-color:var(--navy-900);color:var(--navy-900);}
+.btn-outline:hover{background:var(--navy-900);color:var(--white);}
+.btn-lg{padding:15px 26px;font-size:1rem;}
+.btn-block{width:100%;}
+
+/* ===== Header ===== */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-dark);
+  transition:box-shadow .25s ease;
+}
+.site-header.scrolled{box-shadow:0 8px 24px -18px rgba(5,11,36,.5);}
+.nav-wrap{
+  max-width:var(--container);margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  position:relative;
+}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;letter-spacing:.01em;}
+.brand-mark{
+  width:36px;height:36px;border-radius:10px;background:var(--navy-900);color:var(--blue-300);
+  display:flex;align-items:center;justify-content:center;font-size:.95rem;
+}
+.brand-text em{font-style:normal;color:var(--blue-500);}
+.main-nav{display:flex;gap:28px;}
+.main-nav a{font-size:.93rem;font-weight:500;color:#38406a;transition:color .15s ease;}
+.main-nav a:hover{color:var(--blue-500);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px;}
+.nav-toggle span{width:22px;height:2px;background:var(--navy-900);border-radius:2px;}
+
+@media (max-width:900px){
+  .main-nav{
+    position:absolute;top:100%;left:0;right:0;z-index:40;
+    background:var(--white);box-shadow:var(--shadow);
+    flex-direction:column;align-items:stretch;gap:0;
+    padding:0 24px;max-height:0;opacity:0;overflow:hidden;
+    border-top:0 solid var(--line-dark);
+    transition:max-height .38s ease, opacity .3s ease, padding .38s ease, border-color .38s ease;
+  }
+  .main-nav.open{
+    max-height:420px;opacity:1;padding:10px 24px 18px;
+    border-top:1px solid var(--line-dark);
+  }
+  .main-nav a{padding:14px 0;width:100%;border-bottom:1px solid var(--line-dark);}
+  .nav-toggle{display:flex;}
+  .nav-actions .btn-ghost span{display:none;}
+}
+@media (max-width:520px){
+  .nav-actions .btn-ghost{display:none;}
+}
+
+/* ===== Hero ===== */
+.hero{padding-top:70px;padding-bottom:60px;background:
+  radial-gradient(1200px 500px at 85% -10%, rgba(47,111,237,.12), transparent 60%),
+  var(--white);
+}
+.hero-grid{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;
+}
+@media (max-width:960px){ .hero-grid{grid-template-columns:1fr;gap:48px;} }
+
+.hero-copy h1{font-size:clamp(2.1rem,4.4vw,3.4rem);letter-spacing:-.01em;}
+.accent{color:var(--blue-500);}
+.hero-sub{margin-top:22px;font-size:1.08rem;max-width:520px;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;}
+.hero-stats{display:flex;gap:34px;margin-top:46px;flex-wrap:wrap;}
+.stat{display:flex;flex-direction:column;}
+.stat strong{font-family:var(--display);font-size:1.4rem;color:var(--navy-900);}
+.stat span{font-size:.8rem;color:#6a7398;margin-top:2px;}
+
+.hero-visual{position:relative;}
+.ticket-panel{
+  background:var(--navy-900);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+  border:1px solid var(--navy-700);
+  height:440px;
+}
+.ticket-head{
+  display:flex;align-items:center;gap:8px;padding:14px 16px;
+  border-bottom:1px solid var(--line);
+}
+.dot{width:9px;height:9px;border-radius:50%;}
+.dot-red{background:#ff6b6b;} .dot-amber{background:#ffbe5c;} .dot-green{background:#5fe0a0;}
+.ticket-id{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ice-dim);letter-spacing:.04em;}
+.ticket-body{position:relative;aspect-ratio:4/3;overflow:hidden;}
+.ticket-body img{width:100%;height:100%;object-fit:cover;}
+.scan-line{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg, transparent, var(--blue-300), transparent);
+  box-shadow:0 0 16px 2px rgba(122,166,255,.7);
+  animation:scan 3.2s ease-in-out infinite;
+}
+@keyframes scan{
+  0%,100%{top:6%;} 50%{top:92%;}
+}
+.ticket-log{
+  font-family:var(--mono);font-size:.78rem;color:var(--blue-300);
+  padding:16px 18px;height:104px;line-height:1.7;border-top:1px solid var(--line);
+  white-space:pre-wrap;overflow:hidden;
+}
+.ticket-log .done{color:#5fe0a0;}
+
+.orbit-badge{
+  position:absolute;left:-18px;bottom:-22px;background:var(--white);
+  border:1px solid var(--line-dark);border-radius:14px;box-shadow:var(--shadow);
+  padding:14px 18px;display:flex;align-items:center;gap:12px;max-width:230px;
+}
+.orbit-badge i{color:var(--blue-500);font-size:1.3rem;}
+.orbit-badge strong{display:block;font-size:.85rem;}
+.orbit-badge span{font-size:.76rem;color:#6a7398;}
+@media (max-width:520px){ .orbit-badge{left:0;bottom:-18px;padding:10px 14px;} }
+
+/* ===== Services ===== */
+.services{background:var(--ice);}
+.ticket-grid{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+@media (max-width:960px){ .ticket-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:560px){ .ticket-grid{grid-template-columns:1fr;} }
+
+.service-card{
+  position:relative;background:var(--white);border-radius:14px;padding:28px 22px 24px;
+  border:1px solid var(--line-dark);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:transparent;}
+.service-code{
+  position:absolute;top:16px;right:18px;font-family:var(--mono);font-size:.68rem;color:#9aa4c8;letter-spacing:.03em;
+}
+.service-card i{font-size:1.5rem;color:var(--blue-500);margin-bottom:16px;display:block;}
+.icon-pulse-red{color:var(--bad) !important;animation:pulseRed 1.6s ease-in-out infinite;transform-origin:left center;}
+@keyframes pulseRed{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.5;transform:scale(1.18);}
+}
+.service-card h3{font-size:1.02rem;margin-bottom:6px;}
+.service-card p{font-size:.88rem;margin-bottom:10px;}
+.service-price{font-family:var(--mono);font-size:.78rem;color:var(--navy-900);font-weight:600;}
+
+/* ===== Gallery ===== */
+.gallery-grid{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:16px;
+}
+.gallery-grid figure{position:relative;margin:0;border-radius:14px;overflow:hidden;grid-row:span 1;}
+.gallery-grid figure.g-tall{grid-row:span 2;}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.gallery-grid figure:hover img{transform:scale(1.06);}
+.gallery-grid figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;
+  background:linear-gradient(to top, rgba(5,11,36,.85), transparent);
+  color:var(--white);font-size:.8rem;font-weight:500;
+}
+@media (max-width:900px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-grid figure.g-tall{grid-row:span 2;}
+}
+
+/* ===== Trust ===== */
+.trust-grid{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:1fr .85fr;gap:60px;align-items:center;
+}
+@media (max-width:860px){ .trust-grid{grid-template-columns:1fr;} }
+.trust-copy h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:20px;}
+.trust-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;font-size:.98rem;color:#38406a;border-bottom:1px solid var(--line-dark);}
+.trust-list li:last-child{border-bottom:none;}
+.trust-list i{color:var(--blue-500);margin-top:3px;}
+.trust-visual img{border-radius:18px;box-shadow:var(--shadow);}
+
+/* ===== Booking ===== */
+.booking{background:var(--navy-900);}
+.booking-grid{
+  max-width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:flex-start;
+}
+@media (max-width:960px){ .booking-grid{grid-template-columns:1fr;gap:40px;} }
+
+.booking-info h2{color:var(--white);font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:14px;}
+.booking-info p{color:var(--ice-dim);margin-bottom:28px;}
+.booking-detail{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line);}
+.booking-detail:last-child{border-bottom:1px solid var(--line);}
+.booking-detail i{color:var(--blue-300);font-size:1.15rem;margin-top:2px;}
+.booking-detail strong{display:block;color:var(--white);font-size:.92rem;}
+.booking-detail span{font-size:.85rem;color:var(--ice-dim);}
+
+.booking-form{
+  background:var(--white);border-radius:20px;padding:34px;box-shadow:var(--shadow);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:520px){ .form-row{grid-template-columns:1fr;} }
+.field{margin-bottom:18px;}
+.field label{
+  display:block;font-size:.82rem;font-weight:600;color:var(--navy-900);margin-bottom:7px;
+}
+.field label .req{color:var(--bad);}
+.field input,
+.field select,
+.field textarea{
+  width:100%;font-family:var(--body);font-size:.92rem;color:var(--navy-900);
+  padding:12px 14px;border-radius:10px;border:1px solid var(--line-dark);background:var(--ice);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  outline:none;border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(47,111,237,.15);background:var(--white);
+}
+.field textarea{resize:vertical;min-height:84px;}
+.field-error{display:none;color:var(--bad);font-size:.76rem;margin-top:6px;}
+.field.invalid input,
+.field.invalid select,
+.field.invalid textarea{border-color:var(--bad);}
+.field.invalid .field-error{display:block;}
+
+.deposit-summary{
+  background:var(--ice);border-radius:14px;padding:18px 20px;margin:6px 0 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.deposit-summary div span{display:block;font-size:.76rem;color:#6a7398;}
+.deposit-summary div strong{font-family:var(--mono);font-size:1.15rem;color:var(--navy-900);}
+.deposit-note{font-size:.76rem;color:#6a7398;margin-top:16px;text-align:center;}
+
+.form-status{
+  display:none;align-items:center;gap:10px;padding:14px 16px;border-radius:12px;font-size:.86rem;margin-bottom:18px;
+}
+.form-status.show{display:flex;}
+.form-status.success{background:#eafaf1;color:var(--good);}
+.form-status.error{background:#fdecee;color:var(--bad);}
+
+/* ===== Contact ===== */
+.contact{background:var(--navy-950);}
+.contact-wrap{max-width:640px;margin:0 auto;text-align:center;}
+.contact h2{color:var(--white);font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:12px;}
+.contact p{color:var(--ice-dim);margin-bottom:40px;}
+.contact-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.contact-card{
+  display:flex;align-items:center;gap:14px;background:var(--navy-800);
+  border:1px solid var(--line);border-radius:14px;padding:18px 22px;min-width:200px;
+  transition:transform .18s ease, border-color .18s ease;
+}
+.contact-card:hover{transform:translateY(-4px);border-color:var(--blue-500);}
+.contact-card i{font-size:1.5rem;color:var(--blue-300);}
+.contact-card strong{display:block;color:var(--white);font-size:.95rem;}
+.contact-card span{font-size:.8rem;color:var(--ice-dim);}
+
+/* ===== Footer ===== */
+.site-footer{background:var(--navy-950);border-top:1px solid var(--line);padding:40px 24px 28px;}
+.footer-wrap{max-width:var(--container);margin:0 auto;text-align:center;}
+.footer-wrap .brand{justify-content:center;color:var(--white);margin-bottom:14px;}
+.footer-wrap .brand-mark{background:var(--navy-800);}
+.footer-wrap p{color:var(--ice-dim);font-size:.82rem;max-width:560px;margin:0 auto;}
+.footer-copy{margin-top:14px;color:#5c6796;}
+
+/* ===== Receipt Modal ===== */
+.receipt-overlay{
+  position:fixed;inset:0;background:rgba(5,11,36,.72);backdrop-filter:blur(4px);
+  z-index:200;display:none;align-items:center;justify-content:center;padding:24px;
+  opacity:0;transition:opacity .25s ease;
+}
+.receipt-overlay.show{display:flex;opacity:1;}
+.receipt-wrap{position:relative;width:100%;max-width:420px;max-height:92vh;display:flex;flex-direction:column;gap:16px;}
+.receipt-close{
+  position:absolute;top:-14px;right:-14px;width:34px;height:34px;border-radius:50%;
+  background:var(--white);border:1px solid var(--line-dark);color:var(--navy-900);
+  cursor:pointer;box-shadow:var(--shadow);z-index:2;
+}
+.receipt-card{
+  position:relative;background:var(--white);border-radius:18px;padding:28px 26px;
+  box-shadow:var(--shadow);overflow:auto;max-height:78vh;
+}
+.receipt-watermark{
+  position:absolute;inset:0;pointer-events:none;border-radius:18px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='170'%3E%3Ctext x='-10' y='100' font-family='Arial, sans-serif' font-size='24' font-weight='700' letter-spacing='2' fill='rgba(47,111,237,0.09)' transform='rotate(-28 130 85)'%3ESM FIX %E2%80%A2 PAID%3C/text%3E%3C/svg%3E");
+  background-repeat:repeat;
+}
+.receipt-head{position:relative;display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.receipt-head .brand-mark{background:var(--navy-900);color:var(--blue-300);flex-shrink:0;}
+.receipt-head strong{display:block;font-family:var(--display);font-size:1.05rem;}
+.receipt-head span{font-size:.78rem;color:#6a7398;}
+.receipt-status{
+  margin-left:auto;display:inline-flex;align-items:center;gap:6px;
+  background:#eafaf1;color:var(--good);font-size:.76rem;font-weight:700;
+  padding:6px 12px;border-radius:999px;white-space:nowrap;
+}
+.receipt-meta{position:relative;display:flex;justify-content:space-between;gap:12px;margin-bottom:18px;}
+.receipt-meta div{display:flex;flex-direction:column;gap:3px;}
+.receipt-meta span, .receipt-rows span, .receipt-totals span{font-size:.72rem;color:#6a7398;}
+.receipt-meta strong{font-family:var(--mono);font-size:.85rem;}
+.receipt-divider{position:relative;border-top:1px dashed var(--line-dark);margin:16px 0;}
+.receipt-rows{position:relative;display:flex;flex-direction:column;gap:10px;}
+.receipt-rows div{display:flex;justify-content:space-between;gap:14px;align-items:baseline;}
+.receipt-rows strong{font-size:.86rem;text-align:right;}
+.receipt-totals{position:relative;display:flex;flex-direction:column;gap:10px;}
+.receipt-totals div{display:flex;justify-content:space-between;align-items:baseline;}
+.receipt-totals strong{font-family:var(--mono);font-size:.9rem;}
+.receipt-paid-row strong{color:var(--good);font-size:1.05rem;}
+.receipt-footnote{position:relative;font-size:.74rem;color:#6a7398;margin-top:20px;line-height:1.6;}
+.receipt-actions{display:flex;gap:12px;}
+.receipt-actions .btn{flex:1;}
+@media (max-width:480px){
+  .receipt-actions{flex-direction:column;}
+}
+
+/* ===== Reveal on scroll ===== */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none;}
+  .scan-line{animation:none;}
+  .icon-pulse-red{animation:none;}
+  .main-nav{transition:none;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="nav-wrap">
+    <a href="#top" class="brand">
+      <span class="brand-mark"><i class="fa-solid fa-microchip"></i></span>
+      <span class="brand-text">SM<em>FIX</em></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#services">Services</a>
+      <a href="#gallery">Our Work</a>
+      <a href="#trust">Why Us</a>
+      <a href="#booking">Book a Repair</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="tel:+2348107479952"><i class="fa-solid fa-phone"></i><span>08107479952</span></a>
+      <a class="btn btn-primary" href="#booking">
+        <i class="fa-solid fa-ticket"></i><span>Book Now</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow"><i class="fa-solid fa-ticket"></i> Open a repair ticket in minutes</span>
+        <h1>Your phone deserves<br><span class="accent">a second diagnosis,</span><br>not a second opinion.</h1>
+        <p class="hero-sub">SM Fix repairs cracked screens, water damage, batteries, charging ports and more — with real parts, honest pricing and a technician who shows you what's actually wrong.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="#booking">
+            <i class="fa-solid fa-calendar-check"></i> Book a repair
+          </a>
+          <a class="btn btn-outline btn-lg" href="#services">
+            View services <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong><span class="counter" data-target="3" data-suffix=" hrs">0</span></strong><span>average turnaround</span></div>
+          <div class="stat"><strong><span class="counter" data-target="90" data-suffix=" days">0</span></strong><span>repair warranty</span></div>
+          <div class="stat"><strong><span class="counter" data-target="8" data-suffix="+">0</span></strong><span>repair categories</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="ticket-panel">
+          <div class="ticket-head">
+            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
+            <span class="ticket-id">TICKET #SMF-0417</span>
+          </div>
+          <div class="ticket-body">
+            <img src="https://images.unsplash.com/photo-1746005718004-1f992c399428?auto=format&fit=crop&w=900&q=80" alt="Disassembled phone with repair tools laid out on a mat" loading="lazy">
+            <div class="scan-line"></div>
+          </div>
+          <div class="ticket-log" id="ticketLog" aria-live="polite"></div>
+        </div>
+        <div class="orbit-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div><strong>Genuine parts</strong><span>Every job, every time</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="services" id="services">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i class="fa-solid fa-screwdriver-wrench"></i> Our services</span>
+      <h2>Eight faults. One workbench.</h2>
+      <p>Every device that comes in gets logged, diagnosed and quoted before we touch a single screw. Prices shown are starting deposits — final cost is confirmed after diagnosis.</p>
+    </div>
+
+    <div class="ticket-grid">
+      <article class="service-card reveal">
+        <span class="service-code">SMF-01</span>
+        <i class="fa-solid fa-droplet"></i>
+        <h3>Water Damage</h3>
+        <p>Corrosion cleaning and board-level recovery for liquid-exposed devices.</p>
+        <span class="service-price">From ₦15,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-02</span>
+        <i class="fa-solid fa-mobile-screen"></i>
+        <h3>Broken Screens</h3>
+        <p>Cracked glass or dead display, replaced with properly calibrated panels.</p>
+        <span class="service-price">From ₦20,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-03</span>
+        <i class="fa-solid fa-battery-quarter icon-pulse-red"></i>
+        <h3>Battery Damage</h3>
+        <p>Swollen or fast-draining batteries swapped for tested replacements.</p>
+        <span class="service-price">From ₦10,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-04</span>
+        <i class="fa-solid fa-circle-dot"></i>
+        <h3>Home Buttons</h3>
+        <p>Unresponsive or clicking home buttons repaired or replaced.</p>
+        <span class="service-price">From ₦8,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-05</span>
+        <i class="fa-solid fa-bolt"></i>
+        <h3>Charging Ports</h3>
+        <p>Loose or dead charging ports re-seated or fully replaced.</p>
+        <span class="service-price">From ₦8,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-06</span>
+        <i class="fa-solid fa-headphones"></i>
+        <h3>Headphone Jacks</h3>
+        <p>No sound or static in one ear — jack repair and contact cleaning.</p>
+        <span class="service-price">From ₦7,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-07</span>
+        <i class="fa-solid fa-layer-group"></i>
+        <h3>Broken Glass</h3>
+        <p>Back glass and camera lens replacement without touching the display.</p>
+        <span class="service-price">From ₦12,000</span>
+      </article>
+      <article class="service-card reveal">
+        <span class="service-code">SMF-08</span>
+        <i class="fa-solid fa-volume-high"></i>
+        <h3>Speaker Replacement</h3>
+        <p>Crackling or silent speakers replaced and sound-tested before pickup.</p>
+        <span class="service-price">From ₦8,000</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section class="gallery" id="gallery">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i class="fa-solid fa-camera"></i> Inside the workshop</span>
+      <h2>Real boards. Real repairs.</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <figure class="reveal g-tall">
+        <img src="https://images.unsplash.com/photo-1746017240064-83e015ac117d?auto=format&fit=crop&w=1000&q=80" alt="Technician using a screwdriver on an exposed circuit board" loading="lazy">
+        <figcaption>Board-level diagnostics</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img src="https://images.unsplash.com/photo-1550041473-d296a3a8a18a?auto=format&fit=crop&w=900&q=80" alt="Technician repairing an Android smartphone" loading="lazy">
+        <figcaption>Screen &amp; panel replacement</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img src="https://images.unsplash.com/photo-1611396000732-f8c9a933424f?auto=format&fit=crop&w=900&q=80" alt="Close up of disassembled electronic device components" loading="lazy">
+        <figcaption>Component-level repair</figcaption>
+      </figure>
+      <figure class="reveal g-tall">
+        <img src="https://images.unsplash.com/photo-1631278919249-b985fdb1f901?auto=format&fit=crop&w=1000&q=80" alt="Close up of a green circuit board" loading="lazy">
+        <figcaption>Corrosion &amp; water damage cleaning</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== TRUST ===== -->
+  <section class="trust" id="trust">
+    <div class="trust-grid">
+      <div class="trust-copy reveal">
+        <span class="eyebrow"><i class="fa-solid fa-thumbs-up"></i> Why people choose SM Fix</span>
+        <h2>No guesswork. No upsell. Just a fixed phone.</h2>
+        <ul class="trust-list">
+          <li><i class="fa-solid fa-check"></i> Diagnosis shown to you before any repair starts</li>
+          <li><i class="fa-solid fa-check"></i> Fixed, upfront pricing — confirmed on WhatsApp before work begins</li>
+          <li><i class="fa-solid fa-check"></i> 90-day warranty on every completed repair</li>
+          <li><i class="fa-solid fa-check"></i> Same-day turnaround on most common faults</li>
+        </ul>
+      </div>
+      <div class="trust-visual reveal">
+        <img src="https://images.unsplash.com/photo-1611433965582-de98df4da7ce?auto=format&fit=crop&w=800&q=80" alt="Smartphone on a repair bench ready for diagnosis" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING ===== -->
+  <section class="booking" id="booking">
+    <div class="booking-grid">
+      <div class="booking-info reveal">
+        <span class="eyebrow light"><i class="fa-solid fa-calendar-check"></i> Book a repair</span>
+        <h2>Reserve your repair slot.</h2>
+        <p>Fill in your device fault and a convenient time, and secure it with a deposit via Paystack. We come to confirm the exact issue, or you drop off — whichever works for you.</p>
+
+        <div class="booking-detail">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div><strong>Secure deposit</strong><span>50% upfront via Paystack, balance due when the repair is done.</span></div>
+        </div>
+        <div class="booking-detail">
+          <i class="fa-solid fa-clock"></i>
+          <div><strong>Studio hours</strong><span>Monday – Saturday: 8:00 AM – 7:00 PM</span></div>
+        </div>
+        <div class="booking-detail">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div><strong>Instant confirmation</strong><span>Your booking details go straight to Samuel on WhatsApp after payment.</span></div>
+        </div>
+      </div>
+
+      <form class="booking-form reveal" id="bookingForm" novalidate>
+        <div id="formStatus" class="form-status"></div>
+
+        <div class="field">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" name="fullName" placeholder="e.g. Samuel Effiong" required>
+          <span class="field-error">Please enter your full name.</span>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="0810 000 0000" required maxlength="11" minlength="11">
+            <span class="field-error">Enter a valid phone number.</span>
+          </div>
+          <div class="field">
+            <label for="whatsapp">WhatsApp Number <span class="req">*</span></label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="0810 000 0000" required maxlength="11" minlength="11">
+            <span class="field-error">Enter a valid WhatsApp number.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" required>
+          <span class="field-error">Paystack needs a valid email to send your receipt.</span>
+        </div>
+
+        <div class="field">
+          <label for="address">Home / Pickup Address <span class="req">*</span></label>
+          <input type="text" id="address" name="address" placeholder="e.g. 12 Itam Flyover, Uyo" required>
+          <span class="field-error">Please enter an address.</span>
+        </div>
+
+        <div class="field">
+          <label for="service">Service Needed <span class="req">*</span></label>
+          <select id="service" name="service" required>
+            <option value="" data-price="0" selected disabled>Select a service</option>
+            <option value="Water Damage" data-price="15000">Water Damage — ₦15,000 deposit</option>
+            <option value="Broken Screens" data-price="20000">Broken Screens — ₦20,000 deposit</option>
+            <option value="Battery Damage" data-price="10000">Battery Damage — ₦10,000 deposit</option>
+            <option value="Home Buttons" data-price="8000">Home Buttons — ₦8,000 deposit</option>
+            <option value="Charging Port Replacement" data-price="8000">Charging Port Replacement — ₦8,000 deposit</option>
+            <option value="Headphone Jacks" data-price="7000">Headphone Jacks — ₦7,000 deposit</option>
+            <option value="Broken Glass" data-price="12000">Broken Glass — ₦12,000 deposit</option>
+            <option value="Speaker Replacement" data-price="8000">Speaker Replacement — ₦8,000 deposit</option>
+          </select>
+          <span class="field-error">Please choose a service.</span>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="date">Scheduled Date <span class="req">*</span></label>
+            <input type="date" id="date" name="date" required>
+            <span class="field-error">Pick a date.</span>
+          </div>
+          <div class="field">
+            <label for="time">Scheduled Time <span class="req">*</span></label>
+            <input type="time" id="time" name="time" required>
+            <span class="field-error">Pick a time.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="details">Additional Details</label>
+          <textarea id="details" name="details" placeholder="Phone model, what happened, anything we should know"></textarea>
+        </div>
+
+        <div class="deposit-summary">
+          <div><span>Deposit due now</span><strong id="depositAmount">₦0</strong></div>
+          <div><span>Balance on completion</span><strong id="balanceAmount">₦0</strong></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="payButton">
+          <i class="fa-solid fa-lock"></i> Pay Deposit &amp; Book Slot
+        </button>
+        <p class="deposit-note">50% deposit secures your slot. Balance is paid when your device is repaired and tested. Payments processed securely by Paystack.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact" id="contact">
+    <div class="contact-wrap reveal">
+      <span class="eyebrow light"><i class="fa-solid fa-comment-dots"></i> Get in touch</span>
+      <h2>Prefer to talk it through first?</h2>
+      <p>Reach Samuel directly — most messages get a reply within minutes.</p>
+
+      <div class="contact-cards">
+        <a class="contact-card" href="https://wa.me/2348107479952" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div><strong>WhatsApp</strong><span>08107479952</span></div>
+        </a>
+        <a class="contact-card" href="tel:+2348107479952">
+          <i class="fa-solid fa-phone"></i>
+          <div><strong>Call</strong><span>08107479952</span></div>
+        </a>
+        <a class="contact-card" href="https://twitter.com/Samuel0645" target="_blank" rel="noopener">
+          <i class="fa-brands fa-x-twitter"></i>
+          <div><strong>Twitter / X</strong><span>@Samuel0645</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-wrap">
+    <a href="#top" class="brand">
+      <span class="brand-mark"><i class="fa-solid fa-microchip"></i></span>
+      <span class="brand-text">SM<em>FIX</em></span>
+    </a>
+    <p>Water damage · Broken screens · Batteries · Home buttons · Charging ports · Headphone jacks · Broken glass · Speakers</p>
+    <p class="footer-copy">&copy; <span id="year"></span> SM Fix. All repairs backed by a 90-day warranty.</p>
+  </div>
+</footer>
+
+<!-- ===== RECEIPT MODAL ===== -->
+<div class="receipt-overlay" id="receiptOverlay">
+  <div class="receipt-wrap">
+    <button class="receipt-close" id="receiptCloseBtn" aria-label="Close receipt">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="receipt-card" id="receiptCard">
+      <div class="receipt-watermark" aria-hidden="true"></div>
+
+      <div class="receipt-head">
+        <span class="brand-mark"><i class="fa-solid fa-microchip"></i></span>
+        <div>
+          <strong>SM FIX</strong>
+          <span>Payment Receipt</span>
+        </div>
+        <span class="receipt-status"><i class="fa-solid fa-circle-check"></i> Paid</span>
+      </div>
+
+      <div class="receipt-meta">
+        <div><span>Ticket Ref</span><strong id="receiptRef">—</strong></div>
+        <div><span>Date Issued</span><strong id="receiptDate">—</strong></div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-rows">
+        <div><span>Customer</span><strong id="receiptName">—</strong></div>
+        <div><span>Phone</span><strong id="receiptPhone">—</strong></div>
+        <div><span>WhatsApp</span><strong id="receiptWhatsapp">—</strong></div>
+        <div><span>Address</span><strong id="receiptAddress">—</strong></div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-rows">
+        <div><span>Service</span><strong id="receiptService">—</strong></div>
+        <div><span>Scheduled</span><strong id="receiptSchedule">—</strong></div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-totals">
+        <div><span>Service Cost (est.)</span><strong id="receiptTotal">₦0</strong></div>
+        <div class="receipt-paid-row"><span>Deposit Paid</span><strong id="receiptDeposit">₦0</strong></div>
+        <div><span>Balance on Completion</span><strong id="receiptBalance">₦0</strong></div>
+      </div>
+
+      <p class="receipt-footnote">Present this receipt or your ticket reference at pickup. Balance is due once the repair is completed and tested.</p>
+    </div>
+
+    <div class="receipt-actions">
+      <button class="btn btn-outline" id="receiptDownloadBtn"><i class="fa-solid fa-download"></i> Download Receipt</button>
+      <button class="btn btn-primary" id="receiptContinueBtn"><i class="fa-brands fa-whatsapp"></i> Continue to WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============ Sticky header shadow ============ */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+
+/* ============ Mobile nav toggle ============ */
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+navToggle.addEventListener('click', () => {
+  const open = mainNav.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+mainNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+/* ============ Scroll reveal ============ */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+/* ============ Count-up stats on scroll ============ */
+const counters = document.querySelectorAll('.counter');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function animateCounter(el) {
+  const target = Number(el.getAttribute('data-target')) || 0;
+  const suffix = el.getAttribute('data-suffix') || '';
+  if (reduceMotion) {
+    el.textContent = target + suffix;
+    return;
+  }
+  const duration = 1100;
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const counterIo = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterIo.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.6 });
+counters.forEach(el => counterIo.observe(el));
+
+/* ============ Hero diagnostic ticket log ============ */
+const log = document.getElementById('ticketLog');
+const heroLines = [
+  { text: 'Scanning device…', done: false },
+  { text: 'Screen: cracked — replaceable', done: false },
+  { text: 'Battery: 89% health', done: false },
+  { text: 'Status: repairable ✓', done: true },
+];
+
+function typeLine(el, text, speed = 22) {
+  return new Promise(resolve => {
+    let i = 0;
+    const span = document.createElement('div');
+    el.appendChild(span);
+    const tick = () => {
+      span.textContent = text.slice(0, i);
+      i++;
+      if (i <= text.length) {
+        setTimeout(tick, speed);
+      } else {
+        resolve(span);
+      }
+    };
+    tick();
+  });
+}
+
+async function runLog() {
+  if (!log) return;
+  log.innerHTML = '';
+  for (const line of heroLines) {
+    const span = await typeLine(log, '> ' + line.text);
+    if (line.done) span.classList.add('done');
+    await new Promise(r => setTimeout(r, 260));
+  }
+  await new Promise(r => setTimeout(r, 2200));
+  runLog();
+}
+
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  runLog();
+} else if (log) {
+  log.textContent = '> Status: repairable ✓';
+}
+
+/* ============================================================
+   BOOKING FORM + PAYSTACK CHECKOUT
+   -----------------------------------------------------------
+   Replace PAYSTACK_PUBLIC_KEY with SM Fix's real Paystack
+   public key before going live (starts with pk_live_ or
+   pk_test_ while testing).
+   ============================================================ */
+const PAYSTACK_PUBLIC_KEY = 'pk_test_71d220e5fd848c18440c04f724fbb94d8716cd98';
+const DEPOSIT_RATE = 0.5; // 50% upfront, 50% due on completion
+
+const bookingForm = document.getElementById('bookingForm');
+const serviceSelect = document.getElementById('service');
+const depositAmountEl = document.getElementById('depositAmount');
+const balanceAmountEl = document.getElementById('balanceAmount');
+const payButton = document.getElementById('payButton');
+const formStatus = document.getElementById('formStatus');
+
+function formatNaira(n) {
+  return '₦' + Math.round(n).toLocaleString('en-NG');
+}
+
+function currentServicePrice() {
+  const opt = serviceSelect.options[serviceSelect.selectedIndex];
+  return opt ? Number(opt.getAttribute('data-price')) || 0 : 0;
+}
+
+function updateDepositSummary() {
+  const price = currentServicePrice();
+  const deposit = price * DEPOSIT_RATE;
+  const balance = price - deposit;
+  depositAmountEl.textContent = formatNaira(deposit);
+  balanceAmountEl.textContent = formatNaira(balance);
+}
+serviceSelect.addEventListener('change', updateDepositSummary);
+updateDepositSummary();
+
+function showStatus(message, type) {
+  formStatus.textContent = message;
+  formStatus.className = 'form-status show ' + type;
+}
+
+function setFieldInvalid(field, invalid) {
+  field.closest('.field').classList.toggle('invalid', invalid);
+}
+
+function validateForm(data) {
+  let valid = true;
+
+  const requiredFields = [
+    ['fullName', v => v.trim().length > 1],
+    ['phone', v => /^[0-9+()\-\s]{7,}$/.test(v.trim())],
+    ['whatsapp', v => /^[0-9+()\-\s]{7,}$/.test(v.trim())],
+    ['email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())],
+    ['address', v => v.trim().length > 4],
+    ['service', v => v.trim().length > 0],
+    ['date', v => v.trim().length > 0],
+    ['time', v => v.trim().length > 0],
+  ];
+
+  requiredFields.forEach(([name, test]) => {
+    const el = bookingForm.elements[name];
+    const ok = test(el.value || '');
+    setFieldInvalid(el, !ok);
+    if (!ok) valid = false;
+  });
+
+  return valid;
+}
+
+bookingForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  formStatus.className = 'form-status';
+
+  const data = Object.fromEntries(new FormData(bookingForm).entries());
+
+  if (!validateForm(data)) {
+    showStatus('Please fix the highlighted fields before continuing.', 'error');
+    return;
+  }
+
+  const servicePrice = currentServicePrice();
+  const depositNaira = servicePrice * DEPOSIT_RATE;
+  const balanceNaira = servicePrice - depositNaira;
+  const reference = 'SMFIX_' + Date.now();
+
+  if (typeof PaystackPop === 'undefined') {
+    showStatus('Payment system failed to load. Please check your connection and try again.', 'error');
+    return;
+  }
+
+  payButton.disabled = true;
+  payButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing…';
+
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_PUBLIC_KEY,
+    email: data.email,
+    amount: Math.round(depositNaira * 100), // kobo
+    currency: 'NGN',
+    ref: reference,
+    metadata: {
+      custom_fields: [
+        { display_name: 'Full Name', variable_name: 'full_name', value: data.fullName },
+        { display_name: 'Phone', variable_name: 'phone', value: data.phone },
+        { display_name: 'WhatsApp', variable_name: 'whatsapp', value: data.whatsapp },
+        { display_name: 'Address', variable_name: 'address', value: data.address },
+        { display_name: 'Service', variable_name: 'service', value: data.service },
+        { display_name: 'Scheduled Date', variable_name: 'date', value: data.date },
+        { display_name: 'Scheduled Time', variable_name: 'time', value: data.time },
+      ]
+    },
+    callback: function (response) {
+      const summary =
+        `New SM Fix booking\n` +
+        `Ticket ref: ${response.reference}\n` +
+        `Name: ${data.fullName}\n` +
+        `Phone: ${data.phone}\n` +
+        `WhatsApp: ${data.whatsapp}\n` +
+        `Address: ${data.address}\n` +
+        `Service: ${data.service}\n` +
+        `Date: ${data.date} at ${data.time}\n` +
+        `Deposit paid: ${formatNaira(depositNaira)} (balance ${formatNaira(balanceNaira)} on completion)\n` +
+        `Notes: ${data.details || 'None'}`;
+
+      const waLink = 'https://wa.me/2348107479952?text=' + encodeURIComponent(summary);
+
+      showStatus('Payment received! Reference ' + response.reference + '.', 'success');
+      payButton.disabled = false;
+      payButton.innerHTML = '<i class="fa-solid fa-lock"></i> Pay Deposit &amp; Book Slot';
+      bookingForm.reset();
+      updateDepositSummary();
+
+      openReceipt({
+        reference: response.reference,
+        fullName: data.fullName,
+        phone: data.phone,
+        whatsapp: data.whatsapp,
+        address: data.address,
+        service: data.service,
+        date: data.date,
+        time: data.time,
+        servicePrice: servicePrice,
+        depositNaira: depositNaira,
+        balanceNaira: balanceNaira,
+        waLink: waLink
+      });
+    },
+    onClose: function () {
+      payButton.disabled = false;
+      payButton.innerHTML = '<i class="fa-solid fa-lock"></i> Pay Deposit &amp; Book Slot';
+      showStatus('Payment window closed — your slot has not been booked yet.', 'error');
+    }
+  });
+
+  handler.openIframe();
+});
+
+/* ============================================================
+   DOWNLOADABLE RECEIPT (shown after successful payment)
+   ============================================================ */
+const receiptOverlay = document.getElementById('receiptOverlay');
+const receiptCard = document.getElementById('receiptCard');
+const receiptCloseBtn = document.getElementById('receiptCloseBtn');
+const receiptDownloadBtn = document.getElementById('receiptDownloadBtn');
+const receiptContinueBtn = document.getElementById('receiptContinueBtn');
+let pendingWaLink = null;
+
+function openReceipt(booking) {
+  document.getElementById('receiptRef').textContent = booking.reference;
+  document.getElementById('receiptDate').textContent = new Date().toLocaleString('en-NG', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+  });
+  document.getElementById('receiptName').textContent = booking.fullName;
+  document.getElementById('receiptPhone').textContent = booking.phone;
+  document.getElementById('receiptWhatsapp').textContent = booking.whatsapp;
+  document.getElementById('receiptAddress').textContent = booking.address;
+  document.getElementById('receiptService').textContent = booking.service;
+  document.getElementById('receiptSchedule').textContent = booking.date + ' at ' + booking.time;
+  document.getElementById('receiptTotal').textContent = formatNaira(booking.servicePrice);
+  document.getElementById('receiptDeposit').textContent = formatNaira(booking.depositNaira);
+  document.getElementById('receiptBalance').textContent = formatNaira(booking.balanceNaira);
+
+  pendingWaLink = booking.waLink;
+  receiptOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReceipt() {
+  receiptOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+receiptCloseBtn.addEventListener('click', closeReceipt);
+receiptOverlay.addEventListener('click', (e) => {
+  if (e.target === receiptOverlay) closeReceipt();
+});
+
+receiptDownloadBtn.addEventListener('click', () => {
+  const originalLabel = receiptDownloadBtn.innerHTML;
+  receiptDownloadBtn.disabled = true;
+  receiptDownloadBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparing…';
+
+  html2canvas(receiptCard, { backgroundColor: '#ffffff', scale: 2 }).then((canvas) => {
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const ref = document.getElementById('receiptRef').textContent;
+      a.href = url;
+      a.download = `SMFix-Receipt-${ref}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      receiptDownloadBtn.disabled = false;
+      receiptDownloadBtn.innerHTML = originalLabel;
+    });
+  }).catch(() => {
+    receiptDownloadBtn.disabled = false;
+    receiptDownloadBtn.innerHTML = originalLabel;
+  });
+});
+
+receiptContinueBtn.addEventListener('click', () => {
+  if (pendingWaLink) window.open(pendingWaLink, '_blank');
+  closeReceipt();
+});
+</script>
+</body>
+</html>
